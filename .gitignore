@@ -1,0 +1,54 @@
+
+# ==========================================
+# SR12 - Root Git Ignore
+# Laravel + Python Analytics Service
+# ==========================================
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+auth.json
+
+# Python Virtual Environments
+.venv/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Python Development
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+
+# Dependencies
+node_modules/
+vendor/
+
+# Logs
+*.log
+
+# Laravel Generated Files
+laravel-app/public/build/
+laravel-app/public/hot
+laravel-app/public/storage/
+laravel-app/storage/app/backups/
+
+# Editors
+.idea/
+.vscode/
+.cursor/
+.codex/
+.nova/
+.zed/
+
+# Operating Systems
+.DS_Store
+Thumbs.db
