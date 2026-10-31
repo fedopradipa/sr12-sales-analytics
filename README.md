@@ -1,120 +1,238 @@
+<div align="center">
+
+<img src="laravel-app/public/images/logo-sr12.png" alt="SR12 logo" width="130" />
+
 # SR12 — Product Segmentation & Sales Forecasting
 
-**A web-based system for product segmentation using K-Means Clustering and sales forecasting using Brown's Double Exponential Smoothing (DES).**
+**A web-based product segmentation and sales forecasting system using RFMQ, K-Means Clustering, and Brown's Double Exponential Smoothing.**
 
-SR12 is an undergraduate thesis project that integrates a **Laravel web application** with a **Python analytics service**. It helps users manage sales-related data, group products based on RFMQ characteristics, forecast sales, and review analysis results through a single interface.
+[![Laravel](https://img.shields.io/badge/Laravel-13.13.0-FF2D20?logo=laravel&logoColor=white)](https://laravel.com/)
+[![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?logo=php&logoColor=white)](https://www.php.net/)
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![K--Means](https://img.shields.io/badge/Method-K--Means-2563EB)](#analytical-methods)
+[![DES Brown](https://img.shields.io/badge/Forecasting-DES_Brown-0F766E)](#analytical-methods)
 
-> **Project status:** Academic project. The repository is intended to publish application source code without private sales data or local credentials.
+</div>
 
-## Table of Contents
+---
 
-- [Key Features](#key-features)
-- [Analytical Methods](#analytical-methods)
-- [Technology Stack](#technology-stack)
-- [System Architecture](#system-architecture)
-- [Repository Structure](#repository-structure)
-- [Getting Started](#getting-started)
-- [Running the Tests](#running-the-tests)
-- [Screenshots](#screenshots)
-- [Notes](#notes)
+<div align="center">
+
+## Overview
+
+SR12 is a web-based information system developed as an undergraduate thesis project. The application supports product and sales transaction management, **product segmentation using RFMQ and K-Means Clustering**, and **sales forecasting using Brown's Double Exponential Smoothing (DES)**.
+
+The system combines a **Laravel web application** with a **Python FastAPI analytics service**. Laravel manages the user interface, business workflows, access control, and database operations, while FastAPI processes analytical requests.
+
+</div>
+
+---
+
+## Table of contents
+
+- [Features](#features)
+- [Application screenshots](#application-screenshots)
+- [Tech stack](#tech-stack)
+- [How it works](#how-it-works)
+- [Analytical methods](#analytical-methods)
+- [Project structure](#project-structure)
+- [Getting started](#getting-started)
+- [Configuration](#configuration)
+- [API reference](#api-reference)
+- [Testing](#testing)
+- [Data and security notes](#data-and-security-notes)
 - [Author](#author)
 
-## Key Features
+## Features
 
-- **Authentication and access control:** login, user management, and access permissions for application features.
-- **Product management:** manage product information and stock.
-- **Sales transaction management:** browse, update, and import sales transaction details.
-- **Product segmentation:** process product characteristics using RFMQ and K-Means Clustering, and view segmentation results.
-- **Forecasting parameter management:** manage and calibrate DES smoothing parameters.
-- **Sales forecasting:** generate forecasts for an entire selected product cluster **or for an individual product within a cluster**.
-- **Reporting:** view segmentation and forecasting reports, including PDF-oriented report views.
-- **Data export and testing:** supporting export functionality and automated tests for application and analytics components.
+| Module | Description |
+| --- | --- |
+| Dashboard | Provides a summary of application and sales information. |
+| Product management | Manages product records and inventory/stock information. |
+| Sales transactions | Displays, imports, and manages sales transaction details. |
+| K-Means segmentation | Segments products using Recency, Frequency, Monetary, and Quantity (RFMQ). |
+| DES parameter management | Manages smoothing parameters and supports parameter calibration. |
+| Sales forecasting | Forecasts sales for a selected cluster **or an individual product within that cluster**. |
+| Segmentation and forecasting reports | Displays analytical reports and supports report-oriented output, including PDF views. |
+| User and permission management | Manages users and feature-level access permissions. |
 
-## Analytical Methods
+## Application screenshots
+
+The following screenshots were captured from the running SR12 application. They illustrate its management, segmentation, parameter evaluation, forecasting, and reporting workflows.
+
+<div align="center">
+
+### Dashboard
+
+<img src="docs/screenshots/dashboard.png" alt="SR12 dashboard overview" width="940" />
+
+*Dashboard — application summary and sales information.*
+
+</div>
+
+### Data management
+
+<table>
+  <tr>
+    <th align="center" width="50%">Product management</th>
+    <th align="center" width="50%">Sales transactions</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/produk.png" alt="SR12 product management page" width="100%" /></td>
+    <td align="center"><img src="docs/screenshots/transaksi.png" alt="SR12 sales transactions page" width="100%" /></td>
+  </tr>
+</table>
+
+### Product analytics
+
+<table>
+  <tr>
+    <th align="center" width="50%">K-Means segmentation</th>
+    <th align="center" width="50%">DES parameter selection and evaluation</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/segmentasi.png" alt="SR12 K-Means segmentation page" width="100%" /></td>
+    <td align="center"><img src="docs/screenshots/kalibrasi-parameter.png" alt="SR12 DES smoothing parameter evaluation page" width="100%" /></td>
+  </tr>
+</table>
+
+<div align="center">
+
+### Sales forecasting
+
+<img src="docs/screenshots/peramalan_proses.png" alt="SR12 cluster sales forecasting results" width="940" />
+
+*Forecast results for a selected product group, including sales predictions and stock-related information.*
+
+</div>
+
+### Analytics reports
+
+<table>
+  <tr>
+    <th align="center" width="50%">Segmentation report</th>
+    <th align="center" width="50%">Forecasting report</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/laporan_segmentasi.png" alt="SR12 segmentation report page" width="100%" /></td>
+    <td align="center"><img src="docs/screenshots/laporan_peramalan.png" alt="SR12 forecasting report page" width="100%" /></td>
+  </tr>
+</table>
+
+<div align="center">
+
+### Operator and access management
+
+<img src="docs/screenshots/kelola_pengguna.png" alt="SR12 operator management and access permissions" width="940" />
+
+*User management and feature-level permissions.*
+
+</div>
+
+## Tech stack
+
+| Layer | Technology | Role |
+| --- | --- | --- |
+| Backend web application | PHP 8.3, Laravel 13 | Authentication, workflows, data access, and reporting. |
+| Web interface | Blade, CSS, JavaScript | Application pages and interactions. |
+| Frontend tooling | Vite, npm | Asset compilation and development tooling. |
+| Analytics service | Python 3.11, FastAPI, Uvicorn | HTTP API for analytical computations. |
+| Analytical computation | NumPy, scikit-learn | Numeric processing and clustering. |
+| Database | MySQL | Stores users, products, transactions, parameters, and analytical results. |
+| Dependency management | Composer, npm, pip | Installs application dependencies. |
+
+The version numbers above reflect the environment used for the documented installation test; consult `composer.lock`, `package-lock.json`, and `requirements.txt` for the dependency definitions in your checkout.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A[Admin / Authorized Staff] --> B[Laravel Web Application]
+    B <--> C[(MySQL Database)]
+    B -->|HTTP request| D[Python FastAPI Service]
+    D --> E[K-Means Analysis]
+    D --> F[Brown DES Computation]
+    D -->|Analysis response| B
+    B --> G[Dashboard, Forecasts and Reports]
+```
+
+1. Users manage products, sales transactions, and analytical operations through the Laravel application.
+2. Laravel retrieves the required data from MySQL and prepares an analysis request.
+3. The FastAPI service performs the analytical computation and returns the result.
+4. Laravel validates, displays, and, where applicable, stores the result for reporting.
+
+**Validated local ports:** Laravel uses `http://127.0.0.1:8000`, while FastAPI uses `http://127.0.0.1:8010`. The K-Means integration was exercised successfully through `POST /api/kmeans/analyze` (HTTP 200). Other analytical functions should be tested independently.
+
+## Analytical methods
 
 ### RFMQ and K-Means Clustering
 
-Product segmentation uses four RFMQ attributes:
+Product segmentation is based on four attributes:
 
 | Attribute | Description |
 | --- | --- |
 | **R — Recency** | How recently a product was sold. |
-| **F — Frequency** | How often a product appeared in sales transactions. |
-| **M — Monetary** | The monetary value of product sales. |
-| **Q — Quantity** | The quantity of units sold. |
+| **F — Frequency** | Frequency of product sales. |
+| **M — Monetary** | Monetary value of product sales. |
+| **Q — Quantity** | Number of units sold. |
 
-K-Means Clustering groups products according to these attributes. The research configuration uses **three clusters**, with equal weighting across the four RFMQ attributes.
+The thesis configuration uses **three clusters** and gives the four RFMQ attributes equal weighting. The K-Means algorithm groups products based on their calculated characteristics.
 
-### Brown's Double Exponential Smoothing
+### Brown's Double Exponential Smoothing (DES)
 
-Brown's DES is used to forecast sales based on historical monthly data. The research design uses **36 months of historical observations**, divided into **28 months for training** and **8 months for testing**.
+Brown's DES is used to forecast product sales from historical monthly observations. In the thesis evaluation, **36 months** are split into **28 training months** and **8 testing months**. The smoothing parameter `alpha` is explored over **0.01 to 0.99**, and forecast accuracy is evaluated using **Weighted Absolute Percentage Error (WAPE)**.
 
-Smoothing parameter (alpha) candidates are evaluated over the range **0.01–0.99**; parameter selection is based on training-set **Weighted Absolute Percentage Error (WAPE)**. Training and testing results are evaluated separately. This helps distinguish parameter fitting performance from evaluation on held-out periods.
+The system supports two forecasting scopes:
 
-The application provides two forecasting scopes:
+- **Cluster-level forecasting:** forecast the sales of a selected product cluster.
+- **Individual product forecasting:** forecast the sales of a selected product within a cluster.
 
-1. **Cluster-level forecasting:** forecast sales for the selected product group.
-2. **Product-level forecasting:** forecast sales for one selected product in that group.
+The research-specific evaluation configuration describes the thesis methodology; it is not a claim that the system always achieves a particular error threshold on arbitrary datasets.
 
-## Technology Stack
-
-| Layer | Technologies |
-| --- | --- |
-| Web application | PHP, Laravel, Blade templates |
-| Frontend assets | JavaScript, CSS, Vite |
-| Analytics service | Python, FastAPI |
-| Database | MySQL / compatible relational database |
-| Dependency management | Composer, npm, pip |
-| Automated testing | Laravel/Pest-based test suite, Python tests |
-
-Specific dependency versions are defined in `laravel-app/composer.json`, `laravel-app/package.json`, and `analytics-service/requirements.txt`.
-
-## System Architecture
-
-```mermaid
-flowchart LR
-    U[Admin / Authorized Staff] --> L[Laravel Web Application]
-    L <--> DB[(Relational Database)]
-    L <-->|Analysis requests and results| P[Python Analytics Service]
-    P --> K[K-Means / RFMQ]
-    P --> D[Brown's DES]
-```
-
-Laravel handles the user interface, access control, application workflows, and database interactions. The Python service carries out analytical computations requested by the web application.
-
-## Repository Structure
+## Project structure
 
 ```text
 sr12-sales-analytics/
-├── .gitignore
-├── README.md                 # Main project documentation
-├── analytics-service/       # Python analytics API
+├── analytics-service/           # Python FastAPI analytics service
 │   ├── app/
-│   │   ├── domain/          # DES calculations
-│   │   ├── schemas/         # Request/response schemas
-│   │   ├── services/        # Analytical services
-│   │   └── main.py          # Application entry point
+│   │   ├── domain/              # Core analytical routines
+│   │   ├── schemas/             # API request/response schemas
+│   │   ├── services/            # K-Means and DES services
+│   │   └── main.py              # FastAPI entry point
 │   ├── requirements.txt
 │   ├── requirements-dev.txt
 │   └── tests/
-└── laravel-app/             # Laravel web application
-    ├── app/
-    ├── config/
-    ├── database/
-    ├── docs/
-    ├── public/
-    ├── resources/
-    ├── routes/
-    ├── tests/
-    ├── composer.json
-    └── package.json
+├── laravel-app/                 # Laravel web application
+│   ├── app/                     # Controllers, models, and services
+│   ├── config/                  # Application configurations
+│   ├── database/                # Migrations, factories, and seeders
+│   ├── public/                  # Public assets and project logo
+│   ├── resources/               # Blade views, CSS, and JavaScript
+│   ├── routes/                   # Application routes
+│   ├── tests/
+│   ├── composer.json
+│   └── package.json
+├── docs/
+│   └── screenshots/             # Screenshots used in this README
+├── .gitignore
+└── README.md
 ```
 
-## Getting Started
+## Getting started
 
 ### Prerequisites
 
-Install PHP and Composer, Node.js and npm, Python and pip, and a local MySQL-compatible database. On Windows, a local development environment such as Laragon can be used.
+The following versions were used successfully in a Windows / Laragon installation test:
+
+- PHP **8.3.17** and Composer **2.8.2**
+- Node.js **22.14.0** and npm **10.9.2**
+- Python **3.11.9** and pip
+- MySQL (running locally)
+- Git
+
+These are **tested versions**, not necessarily the minimum supported versions. Check the package manifests for dependency constraints.
 
 ### 1. Clone the repository
 
@@ -123,99 +241,181 @@ git clone https://github.com/fedopradipa/sr12-sales-analytics.git
 cd sr12-sales-analytics
 ```
 
-### 2. Configure the Laravel application
+If you clone the project using another folder name (for example, `SR12`), use that name in the subsequent commands.
+
+### 2. Install Laravel dependencies
 
 ```bash
 cd laravel-app
 composer install
+npm ci
+npm run build
+```
+
+`npm ci` uses the committed `package-lock.json`. The frontend was successfully built with Vite in the installation test.
+
+### 3. Create and configure the database
+
+Start MySQL and create a **new, empty** database through your preferred MySQL tool, for example:
+
+```sql
+CREATE DATABASE db_sr12
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+```
+
+If the database already exists, **do not recreate, overwrite, or reset it**. Back up any existing research data before applying changes.
+
+Create Laravel's environment file:
+
+```bash
 cp .env.example .env
 php artisan key:generate
-npm install
 ```
 
-Configure the database connection and the analytics-service connection in `laravel-app/.env` according to the application's actual configuration. **Do not commit your populated `.env` file.**
+Edit `laravel-app/.env` (example for local Laragon):
 
-For a **new, empty development database**, apply the application's migrations:
+```dotenv
+APP_ENV=local
+APP_DEBUG=true
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_sr12
+DB_USERNAME=root
+DB_PASSWORD=
+
+ANALYTICS_SERVICE_URL=http://127.0.0.1:8010
+```
+
+Use the actual MySQL credentials on your machine; the empty password above is **only an example for a local development environment**. Never commit `.env`.
+
+Apply migrations and seed the **new, empty** database:
 
 ```bash
+php artisan config:clear
 php artisan migrate
+php artisan db:seed
 ```
 
-> **Data safety:** Back up any existing SR12 database before running migrations or seeders. Do not run setup commands against your research or production database without checking their effects.
+The seeders create a development admin account and feature permissions. **Review the seeded admin credentials in `database/seeders/UserSeeder.php` and replace the default password before using the application beyond local testing.** The seeders do not populate the historical product and transaction dataset.
 
-Start the web application and frontend asset server in separate terminals:
+### 4. Install and start the Python analytics service
 
-```bash
-# From laravel-app/
-php artisan serve
-```
-
-```bash
-# From laravel-app/
-npm run dev
-```
-
-### 3. Configure the Python analytics service
-
-From the repository root:
+Open a **second terminal** from the repository root:
 
 ```bash
 cd analytics-service
 python -m venv .venv
 ```
 
-Activate the virtual environment for your shell:
+Activate the virtual environment:
 
 ```bash
 # Windows Git Bash
 source .venv/Scripts/activate
 
-# macOS / Linux: use instead
+# macOS / Linux (use this instead)
 # source .venv/bin/activate
 ```
 
-Install Python dependencies:
+Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
+python -m pip check
 ```
 
-For a standard FastAPI application exposing `app` in `app/main.py`, the development command is:
+Start FastAPI on port **8010**:
 
 ```bash
-python -m uvicorn app.main:app --reload
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8010 --reload
 ```
 
-Ensure the Python service's host and port match the URL configured for Laravel. **Confirm the correct analytics-service environment variables and port from the source configuration before first use.**
+- FastAPI: <http://127.0.0.1:8010>
+- Interactive API documentation: <http://127.0.0.1:8010/docs>
 
-## Running the Tests
+Keep this terminal open while using analytical features.
 
-**Laravel tests** (from `laravel-app/`):
+### 5. Start the Laravel web application
+
+Open another terminal inside `laravel-app/` and run:
 
 ```bash
+php artisan serve --host=127.0.0.1 --port=8000
+```
+
+Open <http://127.0.0.1:8000> in your browser and sign in with your **local development account**.
+
+> **Port configuration:** Laravel and FastAPI must run on different ports. Laravel's `ANALYTICS_SERVICE_URL` must match the FastAPI address; in this guide that is `http://127.0.0.1:8010`.
+
+For frontend development with automatic asset updates, use `npm run dev` in an additional Laravel terminal. For the documented setup, `npm run build` provides built assets without requiring the Vite dev server.
+
+## Configuration
+
+| Setting | Location | Purpose |
+| --- | --- | --- |
+| `DB_CONNECTION` | `laravel-app/.env` | Database driver (`mysql`). |
+| `DB_HOST`, `DB_PORT` | `laravel-app/.env` | Database server address. |
+| `DB_DATABASE` | `laravel-app/.env` | Name of the SR12 database. |
+| `DB_USERNAME`, `DB_PASSWORD` | `laravel-app/.env` | Database credentials. |
+| `ANALYTICS_SERVICE_URL` | `laravel-app/.env` | FastAPI base URL (for example, `http://127.0.0.1:8010`). |
+| `ANALYTICS_CONNECT_TIMEOUT`, `ANALYTICS_TIMEOUT` | `laravel-app/.env` (optional) | HTTP connection/request timeouts defined in Laravel configuration. |
+
+Laravel reads the analytics configuration from `laravel-app/config/services.php`. After changing `.env`, run `php artisan config:clear` and restart the running Laravel process if required.
+
+## API reference
+
+The Python service exposes an HTTP API used by Laravel. The following route has been exercised during installation verification:
+
+| Method | Endpoint | Purpose | Verification |
+| --- | --- | --- | --- |
+| `POST` | `/api/kmeans/analyze` | Process a K-Means analysis request. | HTTP 200 observed from Laravel → FastAPI. |
+
+Visit the generated FastAPI documentation at <http://127.0.0.1:8010/docs> to inspect the other available endpoints and their request/response schemas. Do not assume a DES route name without checking the installed API.
+
+## Testing
+
+**Laravel application tests:**
+
+```bash
+cd laravel-app
 php artisan test
 ```
 
-**Python tests** (from `analytics-service/`, after activating the virtual environment):
+**Python service tests:**
 
 ```bash
-pip install -r requirements-dev.txt
+cd analytics-service
+# Activate .venv first
+python -m pip install -r requirements-dev.txt
 python -m pytest
 ```
 
-These commands run the available test suites; they are not a claim that every test has passed in a fresh environment.
+**Dependency and frontend checks:**
 
-## Screenshots
+```bash
+# In laravel-app/
+npm audit
+npm run build
+```
 
-Screenshots of the dashboard, product segmentation, DES calibration, forecasting, and reports will be added to this section. Keep screenshots free of private customer, sales, or account information.
+These are available validation commands, **not a claim that all application and Python tests have passed**. In the documented local setup, npm audit reported zero vulnerabilities after a dependency update and the frontend build succeeded. Confirm that any local `package-lock.json` security update has been committed to your repository before assuming it is present in a fresh clone.
 
-## Notes
+## Data and security notes
 
-- This repository is intended for academic documentation and portfolio presentation.
-- The segmentation and forecasting methodology should be interpreted in the context of the project dataset and research setup; no universal forecasting-accuracy claim is made.
-- Historical data, database exports, secrets, and local environment files should not be published without review.
-- Before treating this README as a verified deployment guide, confirm the PHP/Python versions, environment variable names, and analytics API port against the final source code.
+- This public source-code repository does **not** automatically restore the thesis dataset. Database migrations create tables; seeders create a development user and permissions, not the historical sales records.
+- Research records (including the 152 products and historical transactions used during local testing) must be supplied separately if their publication is authorized.
+- Do not publish `.env`, database credentials, customer information, private transaction exports, or internal backup files.
+- The included development admin seeder uses a fixed sample password. Change it before any deployment outside a controlled local environment.
+- `APP_DEBUG=true` is for local development only. Disable debug mode for production.
+- No public deployment or performance/accuracy guarantee is implied by the screenshots or methodology description.
 
 ## Author
 
-Developed by [@fedopradipa](https://github.com/fedopradipa) as an undergraduate thesis project.
+Developed by **[@fedopradipa](https://github.com/fedopradipa)** as an undergraduate thesis project.
+
+## License
+
+No license is declared in this README. Refer to a `LICENSE` file if one is added to the repository; absent a license, do not assume the source code is released under MIT or another open-source license.
